@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private  val log: Logger = Logger.getLogger("MainActivity")
     private lateinit var crearCuenta: Button
     private lateinit var iniciarSesion: Button
-    private lateinit var  auth: FirebaseAuth 
+    private lateinit var  auth: FirebaseAuth
     private lateinit var email: EditText
     private lateinit var contraseña: EditText
     private lateinit var usuario: Usuario

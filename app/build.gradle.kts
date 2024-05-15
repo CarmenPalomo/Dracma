@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+
 }
 
 android {
@@ -49,4 +51,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation ("com.google.android.material:material:1.5.0")
+
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 }

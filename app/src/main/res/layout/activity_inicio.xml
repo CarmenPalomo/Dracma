@@ -9,17 +9,7 @@
     tools:ignore="MissingClass">
 
 
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="422dp"
-        android:layout_height="149dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/white">
 
-    </Toolbar>
 
     <ImageView
         android:id="@+id/imageView"
@@ -31,8 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@mipmap/hbo_max_logo_black" />
+       />
 
     <ImageView
         android:id="@+id/imagenPerfil4"
@@ -40,11 +29,13 @@
         android:layout_height="62dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.728"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.675" />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
