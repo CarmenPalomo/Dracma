@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MenuItemsStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/menu_text_color</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Personalizar más aspectos de la app aquí -->
+        <item name="popupMenuStyle">@style/MenuItemsStyle</item>
+    </style>
+</resources>
