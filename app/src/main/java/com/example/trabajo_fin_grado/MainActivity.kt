@@ -17,10 +17,10 @@ import com.google.firebase.ktx.Firebase
 import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
-    private val log: Logger = Logger.getLogger("MainActivity")
+    private  val log: Logger = Logger.getLogger("MainActivity")
     private lateinit var crearCuenta: Button
     private lateinit var iniciarSesion: Button
-    private lateinit var auth: FirebaseAuth
+    private lateinit var  auth: FirebaseAuth
     private lateinit var email: EditText
     private lateinit var contraseña: EditText
     private lateinit var usuario: Usuario
@@ -30,16 +30,16 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val analytics : FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val bundle = Bundle()
-        bundle.putString("message", "Integracion de mensaje completada")
+        bundle.putString("message","Integracion de mensaje completada")
         analytics.logEvent("InitScreen", bundle)
 
         acceder()
 
     }
 
-    private fun acceder() {
+    private fun acceder(){
         crearCuenta = findViewById(R.id.botonRegistrarse)
         iniciarSesion = findViewById(R.id.BotonIniciaSesion)
         email = findViewById(R.id.correoElectronico)
@@ -47,13 +47,11 @@ class MainActivity : AppCompatActivity() {
         val imagen = intent.getIntExtra("imagen", 0)
         log.info("Imagen obtenida. El id es : $imagen")
         iniciarSesion.setOnClickListener {
-            if (email.text.isNotEmpty() && contraseña.text.isNotEmpty()) {
-                auth.signInWithEmailAndPassword(
-                    email.text.toString(),
-                    contraseña.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        //usuario = intent.getParcelableExtra("Persona")!!
+            if (email.text.isNotEmpty() && contraseña.text.isNotEmpty()){
+                auth.signInWithEmailAndPassword(email.text.toString(),
+                    contraseña.text.toString()).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        usuario = intent.getParcelableExtra("Persona")!!
                         val logged = Intent(this, InicioActivity::class.java)
                         logged.putExtra("Persona",  usuario)
                         startActivity(logged)
@@ -68,11 +66,11 @@ class MainActivity : AppCompatActivity() {
 
                     }
                 }
-            } else {
+            }else{
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Error")
                 builder.setMessage("Se ha producido un error en la creacion del usuario")
-                builder.setPositiveButton("Aceptar", null)
+                builder.setPositiveButton("Aceptar",null)
                 val dialog: AlertDialog = builder.create()
                 dialog.show()
             }
@@ -83,6 +81,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(registrarse)
         }
     }
+
+
 
 
 }

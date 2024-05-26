@@ -15,6 +15,7 @@ class InicioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Persona")!!
     }
 
@@ -32,10 +33,12 @@ class InicioActivity : AppCompatActivity() {
 
             R.id.item2 -> {
                 Toast.makeText(this, "Opción 2", Toast.LENGTH_SHORT).show();
+                operaciones()
             }
 
             R.id.item3 -> {
-                Toast.makeText(this, "Opción 3", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
+                inicio()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -43,6 +46,19 @@ class InicioActivity : AppCompatActivity() {
 
     private fun iniciarPerfil() {
         val intent = Intent(this@InicioActivity, PerfilActivity::class.java)
+        intent.putExtra("Persona",  usuario)
+        startActivity(intent)
+    }
+
+    private fun inicio() {
+        val intent = Intent(this@InicioActivity, InicioActivity::class.java)
+        intent.putExtra("Persona",  usuario)
+        startActivity(intent)
+    }
+
+    private fun operaciones() {
+        val intent = Intent(this@InicioActivity, OperacionActivity::class.java)
+        intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 }

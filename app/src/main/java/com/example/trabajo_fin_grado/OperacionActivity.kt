@@ -4,50 +4,52 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.util.logging.Logger
 
-class PerfilActivity: AppCompatActivity() {
-
-    private val log: Logger = Logger.getLogger("PerfilActivity")
-
+class OperacionActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
-
-
+    private lateinit var ingresos : EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil)
+        setContentView(R.layout.activity_operacion)
         setSupportActionBar(findViewById(R.id.my_toolbar))
-
-
-
-        var textoNombre: TextView = findViewById(R.id.texoNombre)
-        var textoApellido: TextView = findViewById(R.id.textoApellido)
-        var textoEmail: TextView = findViewById(R.id.textoEmail)
-        val imagenPerfil : ImageView = findViewById(R.id.imagePerfil)
-
-
-
         usuario = intent.getParcelableExtra("Persona")!!
-        log.info("persona obtenida :: $usuario")
-        imagenPerfil.setImageResource(usuario.getImagen())
+        val spinner: Spinner = findViewById(R.id.spinner)
+        ingresos = findViewById(R.id.ingresos)
 
-        textoNombre.text = "${usuario.getNombre()}"
-        textoApellido.text = "${usuario.getApellido()}"
-        textoEmail.text = "${usuario.getEmail()}"
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.dropdown_items,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
 
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Acción a realizar cuando se selecciona un ítem
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                Toast.makeText(applicationContext, "Seleccionado: $selectedItem", Toast.LENGTH_LONG).show()
+            }
 
-
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Acción a realizar cuando no se selecciona ningún ítem
+            }
+        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_desplegable, menu)
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -70,25 +72,20 @@ class PerfilActivity: AppCompatActivity() {
     }
 
     private fun iniciarPerfil() {
-        val intent = Intent(this@PerfilActivity, PerfilActivity::class.java)
+        val intent = Intent(this@OperacionActivity, PerfilActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
-        val intent = Intent(this@PerfilActivity, InicioActivity::class.java)
+        val intent = Intent(this@OperacionActivity, InicioActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
-        val intent = Intent(this@PerfilActivity, OperacionActivity::class.java)
+        val intent = Intent(this@OperacionActivity, OperacionActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 }
-
-
-
-
-
