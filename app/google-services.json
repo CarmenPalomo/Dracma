@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474794284497",
+    "project_id": "dracma-ae1fe",
+    "storage_bucket": "dracma-ae1fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474794284497:android:4113f2c2e90b74ed3c3cf0",
+        "android_client_info": {
+          "package_name": "com.example.trabajo_fin_grado"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSwYkAPyVW82gulDg9UAHZaqAZWW4PMO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
