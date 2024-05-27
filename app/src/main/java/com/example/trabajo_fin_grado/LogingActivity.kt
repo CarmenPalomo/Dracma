@@ -27,6 +27,7 @@ class LogingActivity : AppCompatActivity() {
     private lateinit var crearCuenta : Button
     private lateinit var botonAtras : Button
     private var idImagenSeleccionada: Int = 0
+    private lateinit var operacion: ArrayList<Operacion>
 
     private var indice = 0
     private var id = arrayOf(R.mipmap.perfil1, R.mipmap.perfil2,R.mipmap.perfil3,
@@ -88,7 +89,8 @@ class LogingActivity : AppCompatActivity() {
                                     correo.text.toString(),
                                     nombre.text.toString(),
                                     apellido.text.toString(),
-                                    idImagenSeleccionada
+                                    idImagenSeleccionada,
+                                    operacion
                                 )
                                 val registrado = Intent(this, MainActivity::class.java)
                                 registrado.putExtra("Persona", usuario)
@@ -132,7 +134,7 @@ class LogingActivity : AppCompatActivity() {
         val usuarioActual : FirebaseUser? = auth.currentUser
         if (usuarioActual !=null) {
             // insertamos los datos del usuario actual en nuestra Base de Datos
-            val user = Usuario (correo, nombre, apellido, idImagenSeleccionada)
+            val user = Usuario (correo, nombre, apellido, idImagenSeleccionada, operacion)
             usuariosRef.child(usuarioActual.uid).setValue(user)
         }
     }

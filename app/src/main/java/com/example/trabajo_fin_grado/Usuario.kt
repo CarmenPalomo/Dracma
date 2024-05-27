@@ -7,14 +7,16 @@ class Usuario(
     private var email: String?,
     private var nombre: String?,
     private var apellido: String?,
-    private var imagen: Int
+    private var imagen: Int,
+    private var operaciones: ArrayList<Operacion>?
 ) :
     Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.createTypedArrayList(Operacion.CREATOR)
     ) {
     }
 
@@ -47,6 +49,7 @@ class Usuario(
         parcel.writeString(nombre)
         parcel.writeString(apellido)
         parcel.writeInt(imagen)
+        parcel.writeList(operaciones)
     }
 
     override fun describeContents(): Int {
