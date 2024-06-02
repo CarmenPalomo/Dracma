@@ -33,7 +33,7 @@ class PerfilActivity: AppCompatActivity() {
 
 
 
-        usuario = intent.getParcelableExtra("Persona")!!
+        usuario = intent.getParcelableExtra("Usuario")!!
         log.info("persona obtenida :: $usuario")
         imagenPerfil.setImageResource(usuario.getImagen())
 
@@ -73,19 +73,19 @@ class PerfilActivity: AppCompatActivity() {
 
     private fun iniciarPerfil() {
         val intent = Intent(this@PerfilActivity, PerfilActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
         val intent = Intent(this@PerfilActivity, DashboardActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
         val intent = Intent(this@PerfilActivity, RegistroOperacionActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 }

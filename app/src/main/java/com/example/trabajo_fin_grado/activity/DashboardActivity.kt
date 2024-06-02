@@ -18,7 +18,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         setSupportActionBar(findViewById(R.id.my_toolbar))
-        usuario = intent.getParcelableExtra("Persona")!!
+        usuario = intent.getParcelableExtra("Usuario")!!
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -48,19 +48,19 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun iniciarPerfil() {
         val intent = Intent(this@DashboardActivity, PerfilActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
         val intent = Intent(this@DashboardActivity, DashboardActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
         val intent = Intent(this@DashboardActivity, RegistroOperacionActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        intent.putExtra("Usuario",  usuario)
         startActivity(intent)
     }
 }

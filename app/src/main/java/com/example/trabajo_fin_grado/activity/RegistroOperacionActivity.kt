@@ -21,7 +21,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_operacion)
         setSupportActionBar(findViewById(R.id.my_toolbar))
-        usuario = intent.getParcelableExtra("Persona")!!
+        usuario = intent.getParcelableExtra("Usuario")!!
         val spinner: Spinner = findViewById(R.id.spinner)
         ingresos = findViewById(R.id.ingresos)
 
@@ -81,19 +81,19 @@ class RegistroOperacionActivity : AppCompatActivity() {
 
     private fun iniciarPerfil() {
         val intent = Intent(this@RegistroOperacionActivity, PerfilActivity::class.java)
-        intent.putExtra("Persona", usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
         val intent = Intent(this@RegistroOperacionActivity, DashboardActivity::class.java)
-        intent.putExtra("Persona", usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
         val intent = Intent(this@RegistroOperacionActivity, RegistroOperacionActivity::class.java)
-        intent.putExtra("Persona", usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 }

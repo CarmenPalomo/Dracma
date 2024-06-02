@@ -4,31 +4,35 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Usuario(
-    private var email: String?,
-    private var nombre: String?,
-    private var apellido: String?,
+    private var idUsuario: String,
+    private var email: String,
+    private var nombre: String,
+    private var apellido: String,
     private var imagen: Int,
     private var operaciones: ArrayList<Operacion>?
-) :
-    Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
         parcel.readInt(),
         parcel.createTypedArrayList(Operacion)
-    ) {
+    )
+
+    fun getId(): String {
+        return idUsuario
     }
 
-    fun getNombre(): String? {
+    fun getNombre(): String {
         return nombre
     }
 
-    fun getEmail(): String? {
+    fun getEmail(): String {
         return email
     }
 
-    fun getApellido(): String? {
+    fun getApellido(): String {
         return apellido
     }
 
@@ -36,15 +40,8 @@ class Usuario(
         return imagen
     }
 
-    fun setNombre(nombre: String?) {
-        this.nombre = nombre
-    }
-
-    fun setApellido(nombre: String?) {
-        this.apellido = apellido
-    }
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(idUsuario)
         parcel.writeString(email)
         parcel.writeString(nombre)
         parcel.writeString(apellido)
@@ -52,12 +49,13 @@ class Usuario(
         parcel.writeList(operaciones)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
 
     override fun toString(): String {
-        return "Usuario(email=$email, nombre=$nombre, apellido=$apellido, imagen=$imagen)"
+        return "Usuario(idUsuario='$idUsuario', email='$email', nombre='$nombre', apellido='$apellido', imagen=$imagen, operaciones=$operaciones)"
+    }
+
+    override fun describeContents(): Int {
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<Usuario> {

@@ -9,15 +9,18 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
 import com.example.trabajo_fin_grado.clases.Usuario
+import com.example.trabajo_fin_grado.db.UsuarioDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import java.util.logging.Logger
 
 class RegistroActivity : AppCompatActivity() {
-
+    private val log: Logger = Logger.getLogger("RegistroActivity")
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var dbHelper: UsuarioDatabase
 
     private lateinit var correo: EditText
     private lateinit var contraseña: EditText
@@ -42,6 +45,7 @@ class RegistroActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance()
+        dbHelper = UsuarioDatabase(this)
 
         correo = findViewById(R.id.Correo)
         contraseña = findViewById(R.id.ContraseñaLog)
@@ -66,22 +70,25 @@ class RegistroActivity : AppCompatActivity() {
                     auth.createUserWithEmailAndPassword(
                         correo.text.toString(),
                         contraseña.text.toString()
-                    ).addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val usuario = Usuario(
-                                correo.text.toString(),
-                                nombre.text.toString(),
-                                apellido.text.toString(),
-                                idImagenSeleccionada,
-                                arrayListOf())
-
-                            val registrado = Intent(this, LoginActivity::class.java)
-                            registrado.putExtra("Persona", usuario)
-                            startActivity(registrado)
-                        } else {
-                            showAlert("Error en la autentificacion")
+                    )
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                val usuario = Usuario(
+                                    auth.currentUser!!.uid,
+                                    correo.text.toString(),
+                                    nombre.text.toString(),
+                                    apellido.text.toString(),
+                                    idImagenSeleccionada,
+                                    arrayListOf()
+                                )
+                                dbHelper.insertarUsuario(usuario)
+                                log.info("usuario registrado")
+                                val registrado = Intent(this, LoginActivity::class.java)
+                                startActivity(registrado)
+                            } else {
+                                showAlert("Error en la autentificacion")
+                            }
                         }
-                    }
                 } else {
                     showAlert("La contraseña no cumple con la complejidad")
                 }

@@ -4,24 +4,24 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Operacion(
-    private var tipo: String?,
-    private var cantidad: Int,
-    private var descripcion: String?,
-    private var categoria: String?
+    private var tipo: TipoOperacion,
+    private var cantidad: Double,
+    private var descripcion: String, //
+    private var categoria: CategoriaOperacion
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+        TipoOperacion.valueOf(parcel.readString()!!),
+        parcel.readDouble(),
+        parcel.readString()!!,
+        CategoriaOperacion.valueOf(parcel.readString()!!)
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(tipo)
-        parcel.writeInt(cantidad)
+        parcel.writeString(tipo.name)
+        parcel.writeDouble(cantidad)
         parcel.writeString(descripcion)
-        parcel.writeString(categoria)
+        parcel.writeString(categoria.name)
     }
 
     override fun describeContents(): Int {
