@@ -22,32 +22,60 @@ class RegistroOperacionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registro_operacion)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Usuario")!!
-        val spinner: Spinner = findViewById(R.id.spinner)
+        val spinnerOperacion: Spinner = findViewById(R.id.spinnerOperacion)
+        val spinnerCategoria : Spinner = findViewById(R.id.spinnerCategoria)
         ingresos = findViewById(R.id.ingresos)
 
-        val adapter = ArrayAdapter.createFromResource(
+        val adapterOperacion = ArrayAdapter.createFromResource(
             this,
-            R.array.dropdown_items,
+            R.array.string_operacion,
             android.R.layout.simple_spinner_item
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        val adapterCategoria = ArrayAdapter.createFromResource(
+            this,
+            R.array.string_categoria,
+            android.R.layout.simple_spinner_item
+        )
+
+
+        adapterOperacion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerOperacion.adapter = adapterOperacion
+
+        adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCategoria.adapter = adapterCategoria
+
+        spinnerOperacion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                // Acción a realizar cuando se selecciona un ítem
                 val selectedItem = parent?.getItemAtPosition(position).toString()
                 Toast.makeText(applicationContext, "Seleccionado: $selectedItem", Toast.LENGTH_LONG)
                     .show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Acción a realizar cuando no se selecciona ningún ítem
+                TODO("Not yet implemented")
+            }
+        }
+
+        spinnerCategoria.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                Toast.makeText(applicationContext, "Seleccionado: $selectedItem", Toast.LENGTH_LONG)
+                    .show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
             }
         }
     }

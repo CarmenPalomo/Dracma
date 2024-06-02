@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name"></string>
-    <string-array name="dropdown_items">
+    <string-array name="string_operacion">
         <item>Ingreso</item>
         <item>Gasto</item>
+    </string-array>
+
+    <string-array name="string_categoria">
+        <item>Ocio</item>
+        <item>Compra</item>
+        <item>GastoFijo</item>
     </string-array>
 </resources>

@@ -32,26 +32,67 @@
         app:menu="@menu/menu_desplegable" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="323dp"
-        android:layout_height="79dp"
+        android:id="@+id/spinnerOperacion"
+        android:layout_width="133dp"
+        android:layout_height="59dp"
         android:layout_marginTop="111dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/edit_text_borde"
-        app:layout_constraintBottom_toTopOf="@+id/ingresos"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.018" />
+
+
+    <TextView
+        android:id="@+id/textCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:text="CATEGORIA"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerCategoria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/spinnerCategoria"
+        android:layout_width="130dp"
+        android:layout_height="59dp"
+        android:background="@drawable/edit_text_borde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273" />
+
+    <TextView
+        android:id="@+id/textOperacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="29dp"
+        android:text="TIPO DE OPERACION"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerOperacion"
+        app:layout_constraintEnd_toStartOf="@+id/textCategoria"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/ingresos"
         android:layout_width="303dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="396dp"
         android:background="@drawable/edit_text_borde"
-        android:hint="Ingresos"
+        android:hint="Cantidad"
         android:inputType="textEmailAddress"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -59,9 +100,43 @@
         android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.314"
+        app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.061" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.469" />
+
+    <TextView
+        android:id="@+id/textCantidad"
+        android:layout_width="76dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="32dp"
+        android:text="CANTIDAD"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/ingresos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerOperacion"
+        app:layout_constraintVertical_bias="0.076" />
+
+    <Button
+        android:id="@+id/BotonIniciaSesion"
+        android:layout_width="167dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="#322C4C"
+        android:elevation="2dp"
+        android:shadowColor="#5C5C5C"
+        android:text="Guardar"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingresos"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
