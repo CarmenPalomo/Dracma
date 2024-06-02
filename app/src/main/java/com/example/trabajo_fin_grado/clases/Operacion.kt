@@ -1,4 +1,4 @@
-package com.example.trabajo_fin_grado
+package com.example.trabajo_fin_grado.clases
 
 import android.os.Parcel
 import android.os.Parcelable

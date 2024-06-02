@@ -1,4 +1,4 @@
-package com.example.trabajo_fin_grado;
+package com.example.trabajo_fin_grado.clases;
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -16,7 +16,7 @@ class Usuario(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.createTypedArrayList(Operacion.CREATOR)
+        parcel.createTypedArrayList(Operacion)
     ) {
     }
 

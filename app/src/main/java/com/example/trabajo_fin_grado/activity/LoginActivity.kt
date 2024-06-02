@@ -1,4 +1,4 @@
-package com.example.trabajo_fin_grado
+package com.example.trabajo_fin_grado.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.clases.Usuario
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthEmailException
@@ -16,7 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.logging.Logger
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private  val log: Logger = Logger.getLogger("MainActivity")
     private lateinit var crearCuenta: Button
     private lateinit var iniciarSesion: Button
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
         auth = Firebase.auth
 
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     contraseña.text.toString()).addOnCompleteListener {
                     if (it.isSuccessful){
                         usuario = intent.getParcelableExtra("Persona")!!
-                        val logged = Intent(this, InicioActivity::class.java)
+                        val logged = Intent(this, DashboardActivity::class.java)
                         logged.putExtra("Persona",  usuario)
                         startActivity(logged)
                     } else {
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                             is FirebaseAuthInvalidCredentialsException -> "La contraseña es incorrecta"
                             else -> "Error al autenticar"
                         }
-                        Toast.makeText(this@MainActivity, error, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@LoginActivity, error, Toast.LENGTH_LONG).show()
 
                     }
                 }
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         crearCuenta.setOnClickListener {
-            val registrarse = Intent(this, LogingActivity::class.java)
+            val registrarse = Intent(this, RegistroActivity::class.java)
             startActivity(registrarse)
         }
     }

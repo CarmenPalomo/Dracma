@@ -1,4 +1,4 @@
-package com.example.trabajo_fin_grado
+package com.example.trabajo_fin_grado.activity
 
 
 import android.content.Intent
@@ -7,14 +7,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.clases.Usuario
 
 
-class InicioActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
 
     private lateinit var usuario: Usuario
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_inicio)
+        setContentView(R.layout.activity_dashboard)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Persona")!!
     }
@@ -45,19 +47,19 @@ class InicioActivity : AppCompatActivity() {
     }
 
     private fun iniciarPerfil() {
-        val intent = Intent(this@InicioActivity, PerfilActivity::class.java)
+        val intent = Intent(this@DashboardActivity, PerfilActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
-        val intent = Intent(this@InicioActivity, InicioActivity::class.java)
+        val intent = Intent(this@DashboardActivity, DashboardActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
-        val intent = Intent(this@InicioActivity, OperacionActivity::class.java)
+        val intent = Intent(this@DashboardActivity, RegistroOperacionActivity::class.java)
         intent.putExtra("Persona",  usuario)
         startActivity(intent)
     }

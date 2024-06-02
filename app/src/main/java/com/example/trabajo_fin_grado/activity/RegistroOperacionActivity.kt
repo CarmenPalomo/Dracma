@@ -1,4 +1,4 @@
-package com.example.trabajo_fin_grado
+package com.example.trabajo_fin_grado.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,15 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.clases.Usuario
 
-class OperacionActivity : AppCompatActivity() {
+class RegistroOperacionActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
-    private lateinit var ingresos : EditText
+    private lateinit var ingresos: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_operacion)
+        setContentView(R.layout.activity_registro_operacion)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Persona")!!
         val spinner: Spinner = findViewById(R.id.spinner)
@@ -32,10 +34,16 @@ class OperacionActivity : AppCompatActivity() {
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 // Acción a realizar cuando se selecciona un ítem
                 val selectedItem = parent?.getItemAtPosition(position).toString()
-                Toast.makeText(applicationContext, "Seleccionado: $selectedItem", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Seleccionado: $selectedItem", Toast.LENGTH_LONG)
+                    .show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -72,20 +80,20 @@ class OperacionActivity : AppCompatActivity() {
     }
 
     private fun iniciarPerfil() {
-        val intent = Intent(this@OperacionActivity, PerfilActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        val intent = Intent(this@RegistroOperacionActivity, PerfilActivity::class.java)
+        intent.putExtra("Persona", usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
-        val intent = Intent(this@OperacionActivity, InicioActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        val intent = Intent(this@RegistroOperacionActivity, DashboardActivity::class.java)
+        intent.putExtra("Persona", usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
-        val intent = Intent(this@OperacionActivity, OperacionActivity::class.java)
-        intent.putExtra("Persona",  usuario)
+        val intent = Intent(this@RegistroOperacionActivity, RegistroOperacionActivity::class.java)
+        intent.putExtra("Persona", usuario)
         startActivity(intent)
     }
 }
