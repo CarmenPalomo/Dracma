@@ -24,6 +24,22 @@ class Operacion(
         parcel.writeString(categoria.name)
     }
 
+
+    fun getipo(): TipoOperacion {
+        return tipo
+    }
+
+    fun getcantidad(): Double {
+        return cantidad
+    }
+
+    fun getdescripcion(): String {
+        return descripcion
+    }
+
+    fun getcategoria(): CategoriaOperacion {
+        return categoria
+    }
     override fun describeContents(): Int {
         return 0
     }

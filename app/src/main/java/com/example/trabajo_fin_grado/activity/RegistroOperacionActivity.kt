@@ -7,24 +7,36 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.clases.CategoriaOperacion
+import com.example.trabajo_fin_grado.clases.Operacion
+import com.example.trabajo_fin_grado.clases.TipoOperacion
 import com.example.trabajo_fin_grado.clases.Usuario
+import com.example.trabajo_fin_grado.db.OperacionesDatabase
 
 class RegistroOperacionActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
     private lateinit var ingresos: EditText
+    private lateinit var dbHandler: OperacionesDatabase
+    private lateinit var spinnerOperacion: Spinner
+    private lateinit var spinnerCategoria: Spinner
+    private lateinit var botonIniciaSesion: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_operacion)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Usuario")!!
-        val spinnerOperacion: Spinner = findViewById(R.id.spinnerOperacion)
-        val spinnerCategoria : Spinner = findViewById(R.id.spinnerCategoria)
+        spinnerOperacion = findViewById(R.id.spinnerOperacion)
+        spinnerCategoria = findViewById(R.id.spinnerCategoria)
         ingresos = findViewById(R.id.ingresos)
+        dbHandler = OperacionesDatabase(this)
+        botonIniciaSesion = findViewById(R.id.BotonIniciaSesion)
+
 
         val adapterOperacion = ArrayAdapter.createFromResource(
             this,
@@ -78,7 +90,13 @@ class RegistroOperacionActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
+
+        botonIniciaSesion.setOnClickListener {
+            saveOperacion()
+        }
     }
+
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -123,5 +141,16 @@ class RegistroOperacionActivity : AppCompatActivity() {
         val intent = Intent(this@RegistroOperacionActivity, RegistroOperacionActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
+    }
+
+    private fun saveOperacion() {
+        val tipo = TipoOperacion.valueOf(spinnerOperacion.selectedItem.toString())
+        val categoria = CategoriaOperacion.valueOf(spinnerCategoria.selectedItem.toString())
+        val cantidad = ingresos.text.toString().toDouble()
+        val descripcion = "Descripción genérica" // Puedes modificar esto según sea necesario
+
+        val operacion = Operacion(tipo, cantidad, descripcion, categoria)
+        dbHandler.addOperacion(operacion, usuario.getId())
+        Toast.makeText(this, "Operación guardada", Toast.LENGTH_SHORT).show()
     }
 }

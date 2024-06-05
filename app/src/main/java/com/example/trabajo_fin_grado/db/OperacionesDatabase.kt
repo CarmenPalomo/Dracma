@@ -1,5 +1,6 @@
 package com.example.trabajo_fin_grado.db
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -59,6 +60,20 @@ class OperacionesDatabase(context: Context) :
         cursor.close()
         dbRead.close()
         return listaOperaciones
+    }
+
+    fun addOperacion(operacion: Operacion, idUsuario: String) {
+        val db = this.writableDatabase
+        val selectQuery = "SELECT * FROM $TABLA_OPERACIONES WHERE $COLUMNA_ID_USUARIO = '$idUsuario'"
+        val values = ContentValues().apply {
+            put(COLUMNA_ID_USUARIO, selectQuery)
+            put(COLUMNA_TIPO, operacion.getipo().name)
+            put(COLUMNA_CANTIDAD, operacion.getcantidad())
+            put(COLUMNA_DESCRIPCION, operacion.getdescripcion())
+            put(COLUMNA_CATEGORIA, operacion.getcategoria().name)
+        }
+        db.insert(TABLA_OPERACIONES, null, values)
+        db.close()
     }
 
 }
