@@ -25,21 +25,22 @@ class Operacion(
     }
 
 
-    fun getipo(): TipoOperacion {
+    fun getTipo(): TipoOperacion {
         return tipo
     }
 
-    fun getcantidad(): Double {
+    fun getCantidad(): Double {
         return cantidad
     }
 
-    fun getdescripcion(): String {
+    fun getDescripcion(): String {
         return descripcion
     }
 
-    fun getcategoria(): CategoriaOperacion {
+    fun getCategoria(): CategoriaOperacion {
         return categoria
     }
+
     override fun describeContents(): Int {
         return 0
     }

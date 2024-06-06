@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name"></string>
     <string-array name="string_operacion">
-        <item>Ingreso</item>
-        <item>Gasto</item>
+        <item>INGRESO</item>
+        <item>GASTO</item>
     </string-array>
 
     <string-array name="string_categoria">
-        <item>Ocio</item>
-        <item>Compra</item>
-        <item>GastoFijo</item>
+        <item>OCIO</item>
+        <item>COMPRA</item>
+        <item>GASTOFIJO</item>
     </string-array>
 </resources>

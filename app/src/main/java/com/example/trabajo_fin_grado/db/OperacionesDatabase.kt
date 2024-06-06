@@ -64,13 +64,12 @@ class OperacionesDatabase(context: Context) :
 
     fun addOperacion(operacion: Operacion, idUsuario: String) {
         val db = this.writableDatabase
-        val selectQuery = "SELECT * FROM $TABLA_OPERACIONES WHERE $COLUMNA_ID_USUARIO = '$idUsuario'"
         val values = ContentValues().apply {
-            put(COLUMNA_ID_USUARIO, selectQuery)
-            put(COLUMNA_TIPO, operacion.getipo().name)
-            put(COLUMNA_CANTIDAD, operacion.getcantidad())
-            put(COLUMNA_DESCRIPCION, operacion.getdescripcion())
-            put(COLUMNA_CATEGORIA, operacion.getcategoria().name)
+            put(COLUMNA_ID_USUARIO, idUsuario)
+            put(COLUMNA_TIPO, operacion.getTipo().name)
+            put(COLUMNA_CANTIDAD, operacion.getCantidad())
+            put(COLUMNA_DESCRIPCION, operacion.getDescripcion())
+            put(COLUMNA_CATEGORIA, operacion.getCategoria().name)
         }
         db.insert(TABLA_OPERACIONES, null, values)
         db.close()

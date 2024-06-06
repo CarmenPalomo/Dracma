@@ -22,10 +22,11 @@ import com.example.trabajo_fin_grado.db.OperacionesDatabase
 class RegistroOperacionActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
     private lateinit var ingresos: EditText
+    private lateinit var descripcion: EditText
     private lateinit var dbHandler: OperacionesDatabase
     private lateinit var spinnerOperacion: Spinner
     private lateinit var spinnerCategoria: Spinner
-    private lateinit var botonIniciaSesion: Button
+    private lateinit var botonGuardarOperacion: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_operacion)
@@ -34,8 +35,9 @@ class RegistroOperacionActivity : AppCompatActivity() {
         spinnerOperacion = findViewById(R.id.spinnerOperacion)
         spinnerCategoria = findViewById(R.id.spinnerCategoria)
         ingresos = findViewById(R.id.ingresos)
+        descripcion = findViewById(R.id.descripcion)
         dbHandler = OperacionesDatabase(this)
-        botonIniciaSesion = findViewById(R.id.BotonIniciaSesion)
+        botonGuardarOperacion = findViewById(R.id.botonGuardarOperacion)
 
 
         val adapterOperacion = ArrayAdapter.createFromResource(
@@ -91,7 +93,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
             }
         }
 
-        botonIniciaSesion.setOnClickListener {
+        botonGuardarOperacion.setOnClickListener {
             saveOperacion()
         }
     }
@@ -147,7 +149,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
         val tipo = TipoOperacion.valueOf(spinnerOperacion.selectedItem.toString())
         val categoria = CategoriaOperacion.valueOf(spinnerCategoria.selectedItem.toString())
         val cantidad = ingresos.text.toString().toDouble()
-        val descripcion = "Descripción genérica" // Puedes modificar esto según sea necesario
+        val descripcion = descripcion.text.toString()
 
         val operacion = Operacion(tipo, cantidad, descripcion, categoria)
         dbHandler.addOperacion(operacion, usuario.getId())
