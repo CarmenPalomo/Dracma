@@ -46,7 +46,7 @@ class Usuario(
         parcel.writeString(nombre)
         parcel.writeString(apellido)
         parcel.writeInt(imagen)
-        parcel.writeList(operaciones)
+        parcel.writeTypedList(operaciones)
     }
 
 

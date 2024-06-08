@@ -8,6 +8,6 @@
     <string-array name="string_categoria">
         <item>OCIO</item>
         <item>COMPRA</item>
-        <item>GASTOFIJO</item>
+        <item>GASTO_FIJO</item>
     </string-array>
 </resources>

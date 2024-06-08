@@ -95,6 +95,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
 
         botonGuardarOperacion.setOnClickListener {
             saveOperacion()
+            inicio()
         }
     }
 
@@ -115,7 +116,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
             }
 
             R.id.item2 -> {
-                Toast.makeText(this, "Opción 2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Operacion", Toast.LENGTH_SHORT).show();
                 operaciones()
             }
 

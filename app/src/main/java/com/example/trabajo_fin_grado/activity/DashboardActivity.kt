@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajo_fin_grado.R
 import com.example.trabajo_fin_grado.activity.operaciones.OperacionAdapter
 import com.example.trabajo_fin_grado.clases.CategoriaOperacion
-import com.example.trabajo_fin_grado.clases.Operacion
-import com.example.trabajo_fin_grado.clases.TipoOperacion
 import com.example.trabajo_fin_grado.clases.Usuario
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.github.mikephil.charting.charts.PieChart
@@ -29,28 +27,26 @@ class DashboardActivity : AppCompatActivity() {
 
     private lateinit var usuario: Usuario
     private lateinit var pieChart: PieChart
-    private val operacionDatabase = OperacionDatabase(this)
+    private lateinit var dbHandler: OperacionDatabase
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Usuario")!!
-
+        dbHandler = OperacionDatabase(this)
         pieChart = findViewById(R.id.pieChart)
 
-        val listaOperaciones = arrayListOf(
-            Operacion(TipoOperacion.INGRESO,2.3," -ingresito majo- ",CategoriaOperacion.GASTO_FIJO),
-            Operacion(TipoOperacion.GASTO, 50.0, " -gasto triste- ", CategoriaOperacion.OCIO),
-            Operacion(TipoOperacion.GASTO, 10.99, " -gasto lloron- ", CategoriaOperacion.COMPRA),
-            Operacion(TipoOperacion.INGRESO, 8.47, " -ingreso top- ", CategoriaOperacion.GASTO_FIJO)
-        )
+
+
 
         setupPieChart()
-        loadPieChartData(listaOperaciones)
+        loadPieChartData()
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewTransacciones)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = OperacionAdapter(listaOperaciones)
+        recyclerView.adapter = OperacionAdapter(dbHandler.getOperacion(usuario.getId()))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -115,18 +111,17 @@ class DashboardActivity : AppCompatActivity() {
         pieChart.legend.isWordWrapEnabled = true
     }
 
-    private fun loadPieChartData(listaOperaciones: List<Operacion>) {
+    private fun loadPieChartData() {
+        val listaOperaciones = dbHandler.getOperacion(usuario.getId())
         val categoryMap = mutableMapOf<CategoriaOperacion, Double>()
         listaOperaciones.forEach {
-            categoryMap[it.getCategoria()] =
-                categoryMap.getOrDefault(it.getCategoria(), 0.0) + it.getCantidad()
+            categoryMap[it.getCategoria()] = categoryMap.getOrDefault(it.getCategoria(), 0.0) + it.getCantidad()
         }
 
         val entries = ArrayList<PieEntry>()
         val colors = ArrayList<Int>()
         for ((categoria, total) in categoryMap) {
             entries.add(PieEntry(total.toFloat(), categoria.name))
-            // Aquí se asignan colores predeterminados, pero puedes personalizar los colores como quieras
             colors.add(ColorTemplate.MATERIAL_COLORS[categoryMap.keys.indexOf(categoria) % ColorTemplate.MATERIAL_COLORS.size])
         }
 
