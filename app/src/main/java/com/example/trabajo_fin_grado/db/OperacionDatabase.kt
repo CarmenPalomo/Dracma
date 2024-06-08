@@ -8,7 +8,7 @@ import com.example.trabajo_fin_grado.clases.CategoriaOperacion
 import com.example.trabajo_fin_grado.clases.Operacion
 import com.example.trabajo_fin_grado.clases.TipoOperacion
 
-class OperacionesDatabase(context: Context) :
+class OperacionDatabase(context: Context) :
     SQLiteOpenHelper(context, DATABASE, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_VERSION = 1

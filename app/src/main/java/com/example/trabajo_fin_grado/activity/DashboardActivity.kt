@@ -7,24 +7,30 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.activity.operaciones.OperacionAdapter
+import com.example.trabajo_fin_grado.clases.CategoriaOperacion
+import com.example.trabajo_fin_grado.clases.Operacion
+import com.example.trabajo_fin_grado.clases.TipoOperacion
+import com.example.trabajo_fin_grado.clases.Usuario
+import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.example.trabajo_fin_grado.R
-import com.example.trabajo_fin_grado.clases.CategoriaOperacion
-import com.example.trabajo_fin_grado.clases.Usuario
-import com.example.trabajo_fin_grado.db.OperacionesDatabase
 
 
 class DashboardActivity : AppCompatActivity() {
 
     private lateinit var usuario: Usuario
     private lateinit var pieChart: PieChart
+    private val operacionDatabase = OperacionDatabase(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
@@ -32,14 +38,19 @@ class DashboardActivity : AppCompatActivity() {
         usuario = intent.getParcelableExtra("Usuario")!!
 
         pieChart = findViewById(R.id.pieChart)
+
+        val listaOperaciones = arrayListOf(
+            Operacion(TipoOperacion.INGRESO,2.3," -ingresito majo- ",CategoriaOperacion.GASTO_FIJO),
+            Operacion(TipoOperacion.GASTO, 50.0, " -gasto triste- ", CategoriaOperacion.OCIO),
+            Operacion(TipoOperacion.GASTO, 10.99, " -gasto lloron- ", CategoriaOperacion.COMPRA),
+            Operacion(TipoOperacion.INGRESO, 8.47, " -ingreso top- ", CategoriaOperacion.GASTO_FIJO)
+        )
+
         setupPieChart()
-        loadPieChartData()
-
-
-        val listaOperaciones = OperacionesDatabase(this).getOperacion(usuario.getId())
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTransacciones)
-        recyclerView.adapter = TransaccionesAdapter(listaOperaciones)
-
+        loadPieChartData(listaOperaciones)
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewTransacciones)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = OperacionAdapter(listaOperaciones)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,19 +80,19 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun iniciarPerfil() {
         val intent = Intent(this@DashboardActivity, PerfilActivity::class.java)
-        intent.putExtra("Usuario",  usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
         val intent = Intent(this@DashboardActivity, DashboardActivity::class.java)
-        intent.putExtra("Usuario",  usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
         val intent = Intent(this@DashboardActivity, RegistroOperacionActivity::class.java)
-        intent.putExtra("Usuario",  usuario)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
@@ -104,11 +115,11 @@ class DashboardActivity : AppCompatActivity() {
         pieChart.legend.isWordWrapEnabled = true
     }
 
-    private fun loadPieChartData() {
-        val listaOperaciones = OperacionesDatabase(this).getOperacion(usuario.getId())
+    private fun loadPieChartData(listaOperaciones: List<Operacion>) {
         val categoryMap = mutableMapOf<CategoriaOperacion, Double>()
         listaOperaciones.forEach {
-            categoryMap[it.categoria] = categoryMap.getOrDefault(it.categoria, 0.0) + it.cantidad
+            categoryMap[it.getCategoria()] =
+                categoryMap.getOrDefault(it.getCategoria(), 0.0) + it.getCantidad()
         }
 
         val entries = ArrayList<PieEntry>()

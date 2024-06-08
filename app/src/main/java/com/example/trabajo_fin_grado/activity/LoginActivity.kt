@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
 import com.example.trabajo_fin_grado.clases.Usuario
-import com.example.trabajo_fin_grado.db.OperacionesDatabase
+import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.example.trabajo_fin_grado.db.UsuarioDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthEmailException
@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private val log: Logger = Logger.getLogger("LoginActivity")
 
     private lateinit var dbUsuarioHelper: UsuarioDatabase
-    private lateinit var dbOperacionesHelper: OperacionesDatabase
+    private lateinit var dbOperacionesHelper: OperacionDatabase
 
     private lateinit var crearCuenta: Button
     private lateinit var iniciarSesion: Button
@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        dbOperacionesHelper = OperacionesDatabase(this)
+        dbOperacionesHelper = OperacionDatabase(this)
         dbUsuarioHelper = UsuarioDatabase(this)
         auth = Firebase.auth
         acceder()

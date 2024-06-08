@@ -17,13 +17,13 @@ import com.example.trabajo_fin_grado.clases.CategoriaOperacion
 import com.example.trabajo_fin_grado.clases.Operacion
 import com.example.trabajo_fin_grado.clases.TipoOperacion
 import com.example.trabajo_fin_grado.clases.Usuario
-import com.example.trabajo_fin_grado.db.OperacionesDatabase
+import com.example.trabajo_fin_grado.db.OperacionDatabase
 
 class RegistroOperacionActivity : AppCompatActivity() {
     private lateinit var usuario: Usuario
     private lateinit var ingresos: EditText
     private lateinit var descripcion: EditText
-    private lateinit var dbHandler: OperacionesDatabase
+    private lateinit var dbHandler: OperacionDatabase
     private lateinit var spinnerOperacion: Spinner
     private lateinit var spinnerCategoria: Spinner
     private lateinit var botonGuardarOperacion: Button
@@ -36,7 +36,7 @@ class RegistroOperacionActivity : AppCompatActivity() {
         spinnerCategoria = findViewById(R.id.spinnerCategoria)
         ingresos = findViewById(R.id.ingresos)
         descripcion = findViewById(R.id.descripcion)
-        dbHandler = OperacionesDatabase(this)
+        dbHandler = OperacionDatabase(this)
         botonGuardarOperacion = findViewById(R.id.botonGuardarOperacion)
 
 
