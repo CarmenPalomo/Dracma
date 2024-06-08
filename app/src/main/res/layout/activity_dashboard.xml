@@ -56,24 +56,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.997">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTransacciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="64dp"
-            tools:context=".DashboardFragment">
-
-
-            <View
-                android:id="@+id/barraGrisGastosFijos"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:layout_marginBottom="64dp"
-                android:background="@color/gris"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:paddingBottom="64dp" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

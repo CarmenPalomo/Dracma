@@ -4,10 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Operacion(
-    private var tipo: TipoOperacion,
-    private var cantidad: Double,
-    private var descripcion: String, //
-    private var categoria: CategoriaOperacion
+    var tipo: TipoOperacion,
+    var cantidad: Double,
+    var descripcion: String, //
+    var categoria: CategoriaOperacion
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
