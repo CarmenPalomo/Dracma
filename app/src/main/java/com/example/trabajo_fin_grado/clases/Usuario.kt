@@ -9,7 +9,8 @@ class Usuario(
     private var nombre: String,
     private var apellido: String,
     private var imagen: Int,
-    private var operaciones: ArrayList<Operacion>?
+    private var operaciones: ArrayList<Operacion>?,
+    private var objetivos: ArrayList<Objetivo>?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -17,7 +18,8 @@ class Usuario(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.createTypedArrayList(Operacion)
+        parcel.createTypedArrayList(Operacion),
+        parcel.createTypedArrayList(Objetivo)
     )
 
     fun getId(): String {
@@ -47,6 +49,7 @@ class Usuario(
         parcel.writeString(apellido)
         parcel.writeInt(imagen)
         parcel.writeTypedList(operaciones)
+        parcel.writeTypedList(objetivos)
     }
 
 

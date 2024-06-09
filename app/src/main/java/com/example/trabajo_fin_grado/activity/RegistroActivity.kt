@@ -79,6 +79,7 @@ class RegistroActivity : AppCompatActivity() {
                                     nombre.text.toString(),
                                     apellido.text.toString(),
                                     idImagenSeleccionada,
+                                    arrayListOf(),
                                     arrayListOf()
                                 )
                                 dbHelper.insertarUsuario(usuario)

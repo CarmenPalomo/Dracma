@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
+import com.example.trabajo_fin_grado.clases.Objetivo
 import com.example.trabajo_fin_grado.clases.Usuario
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.example.trabajo_fin_grado.db.UsuarioDatabase
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                             log.info("obtenemos datos del usuario")
                             val datosUsuario = dbUsuarioHelper.obtenerUsuario(userId)
                             val operaciones = dbOperacionesHelper.getOperacion(userId)
+                            val objetivos = arrayListOf<Objetivo>()
                             val usuarioActual =
                                 Usuario(
                                     userId,
@@ -63,7 +65,8 @@ class LoginActivity : AppCompatActivity() {
                                     datosUsuario.getNombre(),
                                     datosUsuario.getApellido(),
                                     datosUsuario.getImagen(),
-                                    operaciones
+                                    operaciones,
+                                    objetivos
                                 )
                             log.info("datos del usuario obtenidos")
                             val dashboardIntent = Intent(this, DashboardActivity::class.java)
