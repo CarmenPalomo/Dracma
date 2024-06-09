@@ -24,6 +24,20 @@ class Objetivo(
         dest.writeDouble(ahorrado)
     }
 
+
+    fun getCantidad(): Double {
+        return cantidad
+    }
+
+    fun getDescripcion(): String {
+        return descripcion
+    }
+
+    fun getAhorrado(): Double {
+        return ahorrado
+    }
+
+
     companion object CREATOR : Parcelable.Creator<Objetivo> {
         override fun createFromParcel(parcel: Parcel): Objetivo {
             return Objetivo(parcel)

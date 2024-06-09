@@ -42,7 +42,7 @@ class OperacionDatabase(context: Context) :
         onCreate(db)
     }
 
-    fun getOperacion(idUsuario: String): ArrayList<Operacion> {
+    fun getOperaciones(idUsuario: String): ArrayList<Operacion> {
         val selectQuery = "SELECT * FROM $TABLA_OPERACIONES WHERE $COLUMNA_ID_USUARIO = '$idUsuario'"
         val listaOperaciones = arrayListOf<Operacion>()
         val dbRead = this.readableDatabase

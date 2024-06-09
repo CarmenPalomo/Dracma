@@ -7,8 +7,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
-import com.example.trabajo_fin_grado.clases.Objetivo
 import com.example.trabajo_fin_grado.clases.Usuario
+import com.example.trabajo_fin_grado.db.ObjetivoDatabase
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.example.trabajo_fin_grado.db.UsuarioDatabase
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var dbUsuarioHelper: UsuarioDatabase
     private lateinit var dbOperacionesHelper: OperacionDatabase
+    private lateinit var dbObjetivoHelper: ObjetivoDatabase
 
     private lateinit var crearCuenta: Button
     private lateinit var iniciarSesion: Button
@@ -36,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         dbOperacionesHelper = OperacionDatabase(this)
         dbUsuarioHelper = UsuarioDatabase(this)
+        dbObjetivoHelper = ObjetivoDatabase(this)
         auth = Firebase.auth
         acceder()
 
@@ -56,8 +58,8 @@ class LoginActivity : AppCompatActivity() {
                             val userId = auth.currentUser!!.uid
                             log.info("obtenemos datos del usuario")
                             val datosUsuario = dbUsuarioHelper.obtenerUsuario(userId)
-                            val operaciones = dbOperacionesHelper.getOperacion(userId)
-                            val objetivos = arrayListOf<Objetivo>()
+                            val operaciones = dbOperacionesHelper.getOperaciones(userId)
+                            val objetivos = dbObjetivoHelper.getObjetivos(userId)
                             val usuarioActual =
                                 Usuario(
                                     userId,
