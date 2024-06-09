@@ -46,7 +46,7 @@ class DashboardActivity : AppCompatActivity() {
         loadPieChartData()
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewTransacciones)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = OperacionAdapter(dbHandler.getOperacion(usuario.getId()))
+        recyclerView.adapter = OperacionAdapter(dbHandler.getOperaciones(usuario.getId()))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -112,7 +112,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun loadPieChartData() {
-        val listaOperaciones = dbHandler.getOperacion(usuario.getId())
+        val listaOperaciones = dbHandler.getOperaciones(usuario.getId())
         val categoryMap = mutableMapOf<CategoriaOperacion, Double>()
         listaOperaciones.forEach {
             categoryMap[it.getCategoria()] = categoryMap.getOrDefault(it.getCategoria(), 0.0) + it.getCantidad()

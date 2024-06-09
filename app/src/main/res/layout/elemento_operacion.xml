@@ -7,17 +7,18 @@
 
     <TextView
         android:id="@+id/textoTipo"
-        android:layout_width="42dp"
+        android:layout_width="98dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textoCategoria"
-        android:layout_width="42dp"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="right"
+        android:textAlignment="center"
         android:textSize="16sp" />
 
     <TextView
@@ -25,14 +26,15 @@
         android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:gravity="right"
+        android:textAlignment="center"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textoCantidad"
-        android:layout_width="42dp"
+        android:layout_width="104dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:textSize="16sp" />
 
 

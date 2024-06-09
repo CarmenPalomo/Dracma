@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/textoObjetivo"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/botonVerObjetivo"
+        android:layout_width="wrap_content"
+        android:layout_height="59dp"
+        android:backgroundTint="#322C4C"
+        android:elevation="2dp"
+        android:shadowColor="#5C5C5C"
+        android:text="Ver"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
