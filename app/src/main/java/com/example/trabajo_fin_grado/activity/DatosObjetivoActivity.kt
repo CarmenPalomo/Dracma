@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
 import com.example.trabajo_fin_grado.clases.Objetivo
 import com.example.trabajo_fin_grado.clases.Usuario
+import com.example.trabajo_fin_grado.db.ObjetivoDatabase
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.github.mikephil.charting.charts.PieChart
 
@@ -18,6 +19,7 @@ class DatosObjetivoActivity : AppCompatActivity() {
     private lateinit var objetivo: Objetivo
     private lateinit var pieChart: PieChart
     private lateinit var dbHandler: OperacionDatabase
+    private lateinit var dbObjetivo: ObjetivoDatabase
     private lateinit var usuario: Usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +28,30 @@ class DatosObjetivoActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         objetivo = intent.getParcelableExtra("Objetivo")!!
         usuario = intent.getParcelableExtra("Usuario")!!
+        dbObjetivo = ObjetivoDatabase(this)
 
         val botonGuardarAhorro = findViewById<Button>(R.id.botonGuardarAhorro)
         botonGuardarAhorro.setOnClickListener {
             val cantidadAhorrar = findViewById<EditText>(R.id.ahorro).text.toString().toDouble()
-            //TODO: guardar el ahorro. actualizar el grafico. actualizar bbdd con el objetivo modificado
+            objetivo.setAhorrado(objetivo.getAhorrado() + cantidadAhorrar) // Asumiendo que quieres sumar a lo ya ahorrado
+
+            // Actualizar en la base de datos
+            dbObjetivo.addObjetivo(objetivo, usuario.getId())
+
+            // Actualizar el gráfico de pie
+            loadPieChartData(objetivo.getAhorrado().toInt())
+
+            // Actualizar la lista de objetivos en el usuario si es necesario
+            usuario.getObjetivos()?.let { lista ->
+                val index = lista.indexOf(objetivo)
+                if (index != -1) {
+                    lista[index] = objetivo
+                }
+                usuario.setObjetivos(lista)  // Actualiza la lista completa en el objeto usuario
+            }
+
+            // Mostrar confirmación
+            Toast.makeText(this, "Ahorro guardado correctamente", Toast.LENGTH_SHORT).show()
         }
 
         dbHandler = OperacionDatabase(this)

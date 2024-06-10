@@ -42,6 +42,14 @@ class Usuario(
         return imagen
     }
 
+    fun getObjetivos(): ArrayList<Objetivo>? {
+        return objetivos
+    }
+
+    fun setObjetivos(nuevosObjetivos: ArrayList<Objetivo>) {
+        objetivos = nuevosObjetivos
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(idUsuario)
         parcel.writeString(email)

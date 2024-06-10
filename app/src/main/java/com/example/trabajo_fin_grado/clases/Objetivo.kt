@@ -37,6 +37,10 @@ class Objetivo(
         return ahorrado
     }
 
+    fun setAhorrado(newAhorrado: Double) {
+        ahorrado = newAhorrado
+    }
+
 
     companion object CREATOR : Parcelable.Creator<Objetivo> {
         override fun createFromParcel(parcel: Parcel): Objetivo {
