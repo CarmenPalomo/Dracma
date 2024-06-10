@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trabajo_fin_grado.R
 import com.example.trabajo_fin_grado.clases.Objetivo
+import com.example.trabajo_fin_grado.clases.Usuario
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.github.mikephil.charting.charts.PieChart
 
@@ -17,12 +18,14 @@ class DatosObjetivoActivity : AppCompatActivity() {
     private lateinit var objetivo: Objetivo
     private lateinit var pieChart: PieChart
     private lateinit var dbHandler: OperacionDatabase
+    private lateinit var usuario: Usuario
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ahorro)
         setSupportActionBar(findViewById(R.id.my_toolbar))
         objetivo = intent.getParcelableExtra("Objetivo")!!
+        usuario = intent.getParcelableExtra("Usuario")!!
 
         val botonGuardarAhorro = findViewById<Button>(R.id.botonGuardarAhorro)
         botonGuardarAhorro.setOnClickListener {
@@ -57,27 +60,37 @@ class DatosObjetivoActivity : AppCompatActivity() {
                 Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
                 inicio()
             }
+            R.id.item4 ->{
+                Toast.makeText(this, "Lista de ahorros", Toast.LENGTH_SHORT).show();
+                listaAhorro()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun iniciarPerfil() {
         val intent = Intent(this@DatosObjetivoActivity, PerfilActivity::class.java)
-        intent.putExtra("Usuario", objetivo)
+        intent.putExtra("Usuario", usuario )
         startActivity(intent)
     }
 
     private fun inicio() {
         val intent = Intent(this@DatosObjetivoActivity, DashboardActivity::class.java)
-        intent.putExtra("Usuario", objetivo)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
         val intent = Intent(this@DatosObjetivoActivity, RegistroOperacionActivity::class.java)
-        intent.putExtra("Usuario", objetivo)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
+    private fun listaAhorro() {
+        val intent = Intent(this@DatosObjetivoActivity, ObjetivosActivity::class.java)
+        intent.putExtra("Usuario", usuario)
+        startActivity(intent)
+    }
+
 
     private fun loadPieChartData(ingreso: Int) {
 

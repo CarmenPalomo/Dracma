@@ -67,6 +67,10 @@ class PerfilActivity: AppCompatActivity() {
                 Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
                 inicio()
             }
+            R.id.item4 ->{
+                Toast.makeText(this, "Lista de ahorros", Toast.LENGTH_SHORT).show();
+                listaAhorro()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -86,6 +90,12 @@ class PerfilActivity: AppCompatActivity() {
     private fun operaciones() {
         val intent = Intent(this@PerfilActivity, RegistroOperacionActivity::class.java)
         intent.putExtra("Usuario",  usuario)
+        startActivity(intent)
+    }
+
+    private fun listaAhorro() {
+        val intent = Intent(this@PerfilActivity, ObjetivosActivity::class.java)
+        intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 }

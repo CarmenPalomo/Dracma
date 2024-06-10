@@ -70,6 +70,10 @@ class DashboardActivity : AppCompatActivity() {
                 Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
                 inicio()
             }
+            R.id.item4 ->{
+                Toast.makeText(this, "Lista de ahorros", Toast.LENGTH_SHORT).show();
+                listaAhorro()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -88,6 +92,12 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun operaciones() {
         val intent = Intent(this@DashboardActivity, RegistroOperacionActivity::class.java)
+        intent.putExtra("Usuario", usuario)
+        startActivity(intent)
+    }
+
+    private fun listaAhorro() {
+        val intent = Intent(this@DashboardActivity, ObjetivosActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }

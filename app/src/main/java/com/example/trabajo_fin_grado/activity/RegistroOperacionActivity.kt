@@ -87,6 +87,10 @@ class RegistroOperacionActivity : AppCompatActivity() {
                 Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
                 inicio()
             }
+            R.id.item4 ->{
+                Toast.makeText(this, "Lista de ahorros", Toast.LENGTH_SHORT).show();
+                listaAhorro()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -105,6 +109,12 @@ class RegistroOperacionActivity : AppCompatActivity() {
 
     private fun operaciones() {
         val intent = Intent(this@RegistroOperacionActivity, RegistroOperacionActivity::class.java)
+        intent.putExtra("Usuario", usuario)
+        startActivity(intent)
+    }
+
+    private fun listaAhorro() {
+        val intent = Intent(this@RegistroOperacionActivity, ObjetivosActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }

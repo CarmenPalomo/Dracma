@@ -13,4 +13,8 @@
         android:id="@+id/item3"
         android:iconTint="@color/black"
         android:title="Inicio" />
+    <item
+        android:id="@+id/item4"
+        android:iconTint="@color/black"
+        android:title="ListaAhorro" />
 </menu>
