@@ -1,6 +1,7 @@
 package com.example.trabajo_fin_grado.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,11 @@ import com.example.trabajo_fin_grado.clases.Usuario
 import com.example.trabajo_fin_grado.db.ObjetivoDatabase
 import com.example.trabajo_fin_grado.db.OperacionDatabase
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 
 class DatosObjetivoActivity : AppCompatActivity() {
     private lateinit var objetivo: Objetivo
@@ -29,18 +35,15 @@ class DatosObjetivoActivity : AppCompatActivity() {
         objetivo = intent.getParcelableExtra("Objetivo")!!
         usuario = intent.getParcelableExtra("Usuario")!!
         dbObjetivo = ObjetivoDatabase(this)
+        pieChart = findViewById(R.id.pieChart)
+
+        setupPieChart()
 
         val botonGuardarAhorro = findViewById<Button>(R.id.botonGuardarAhorro)
         botonGuardarAhorro.setOnClickListener {
             val cantidadAhorrar = findViewById<EditText>(R.id.ahorro).text.toString().toDouble()     
             objetivo.setAhorrado(objetivo.getAhorrado() + cantidadAhorrar)
-
-
-            dbObjetivo.addObjetivo(objetivo, usuario.getId())
-
-
-            loadPieChartData(objetivo.getAhorrado().toInt())
-
+            dbObjetivo.updateObjetivo(objetivo, usuario.getId())
 
             usuario.getObjetivos()?.let { lista ->
                 val index = lista.indexOf(objetivo)
@@ -50,11 +53,12 @@ class DatosObjetivoActivity : AppCompatActivity() {
                 usuario.setObjetivos(lista)
             }
 
+            loadPieChartData()
+
             Toast.makeText(this, "Ahorro guardado correctamente", Toast.LENGTH_SHORT).show()
         }
 
         dbHandler = OperacionDatabase(this)
-        pieChart = findViewById(R.id.pieChart)
 
 
     }
@@ -111,8 +115,54 @@ class DatosObjetivoActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun setupPieChart() {
+        pieChart.setUsePercentValues(true)
+        pieChart.description.isEnabled = false
+        pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
+        pieChart.dragDecelerationFrictionCoef = 0.95f
+        pieChart.isDrawHoleEnabled = true
+        pieChart.setHoleColor(Color.WHITE)
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
+        pieChart.holeRadius = 58f
+        pieChart.transparentCircleRadius = 61f
+        pieChart.setDrawCenterText(true)
+        pieChart.rotationAngle = 0f
+        pieChart.isRotationEnabled = true
+        pieChart.isHighlightPerTapEnabled = true
+        pieChart.legend.orientation = Legend.LegendOrientation.VERTICAL
+        pieChart.legend.isWordWrapEnabled = true
+    }
 
-    private fun loadPieChartData(ingreso: Int) {
 
+    private fun loadPieChartData() {
+        val total = objetivo.getCantidad()
+        val ahorrado = objetivo.getAhorrado()
+        val restante = total - ahorrado
+
+        val entries = ArrayList<PieEntry>()
+        entries.add(PieEntry(ahorrado.toFloat(), "Ahorrado"))
+        entries.add(PieEntry(restante.toFloat(), "Restante"))
+
+        val colors = ArrayList<Int>()
+        colors.add(ColorTemplate.MATERIAL_COLORS[0]) // Color para "Ahorrado"
+        colors.add(ColorTemplate.MATERIAL_COLORS[1]) // Color para "Restante"
+
+        val dataSet = PieDataSet(entries, "Progreso del Objetivo")
+        dataSet.colors = colors
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+        dataSet.valueLinePart1OffsetPercentage = 80f
+        dataSet.valueLinePart1Length = 0.2f
+        dataSet.valueLinePart2Length = 0.4f
+        dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+
+        val data = PieData(dataSet)
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.BLACK)
+
+        pieChart.data = data
+        pieChart.highlightValues(null)
+        pieChart.invalidate()
     }
 }

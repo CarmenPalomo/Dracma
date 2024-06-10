@@ -22,6 +22,7 @@ class ObjetivosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_objetivos_ahorro)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Usuario")!!
         botonAniadir = findViewById(R.id.botonAniadir)
 

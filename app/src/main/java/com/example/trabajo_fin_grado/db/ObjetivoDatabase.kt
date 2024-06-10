@@ -9,7 +9,7 @@ import com.example.trabajo_fin_grado.clases.Objetivo
 class ObjetivoDatabase(context: Context) :
     SQLiteOpenHelper(context, DATABASE, null, DATABASE_VERSION) {
     companion object {
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         private const val DATABASE = "OBJETIVO.db"
         private const val TABLA_OBJETIVO = "OBJETIVO"
         private const val COLUMNA_ID = "id"
@@ -66,6 +66,15 @@ class ObjetivoDatabase(context: Context) :
             put(COLUMNA_AHORRO, objetivo.getAhorrado())
         }
         db.insert(TABLA_OBJETIVO, null, values)
+        db.close()
+    }
+
+    fun updateObjetivo(objetivo: Objetivo, idUsuario: String) {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMNA_AHORRO, objetivo.getAhorrado())
+        }
+        db.update(TABLA_OBJETIVO, values, "$COLUMNA_ID_USUARIO=? AND $COLUMNA_DESCRIPCION=? AND $COLUMNA_CANTIDAD=?", arrayOf(idUsuario, objetivo.getDescripcion(), objetivo.getCantidad().toString()))
         db.close()
     }
 }
