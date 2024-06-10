@@ -32,25 +32,24 @@ class DatosObjetivoActivity : AppCompatActivity() {
 
         val botonGuardarAhorro = findViewById<Button>(R.id.botonGuardarAhorro)
         botonGuardarAhorro.setOnClickListener {
-            val cantidadAhorrar = findViewById<EditText>(R.id.ahorro).text.toString().toDouble()
-            objetivo.setAhorrado(objetivo.getAhorrado() + cantidadAhorrar) // Asumiendo que quieres sumar a lo ya ahorrado
+            val cantidadAhorrar = findViewById<EditText>(R.id.ahorro).text.toString().toDouble()     
+            objetivo.setAhorrado(objetivo.getAhorrado() + cantidadAhorrar)
 
-            // Actualizar en la base de datos
+
             dbObjetivo.addObjetivo(objetivo, usuario.getId())
 
-            // Actualizar el gráfico de pie
+
             loadPieChartData(objetivo.getAhorrado().toInt())
 
-            // Actualizar la lista de objetivos en el usuario si es necesario
+
             usuario.getObjetivos()?.let { lista ->
                 val index = lista.indexOf(objetivo)
                 if (index != -1) {
                     lista[index] = objetivo
                 }
-                usuario.setObjetivos(lista)  // Actualiza la lista completa en el objeto usuario
+                usuario.setObjetivos(lista)
             }
 
-            // Mostrar confirmación
             Toast.makeText(this, "Ahorro guardado correctamente", Toast.LENGTH_SHORT).show()
         }
 

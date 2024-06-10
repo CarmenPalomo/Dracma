@@ -9,7 +9,7 @@ import com.example.trabajo_fin_grado.clases.Objetivo
 class ObjetivoDatabase(context: Context) :
     SQLiteOpenHelper(context, DATABASE, null, DATABASE_VERSION) {
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE = "OBJETIVO.db"
         private const val TABLA_OBJETIVO = "OBJETIVO"
         private const val COLUMNA_ID = "id"
@@ -23,8 +23,8 @@ class ObjetivoDatabase(context: Context) :
         val CREATE_TABLE_OBJETIVO = "CREATE TABLE $TABLA_OBJETIVO(" +
                 "$COLUMNA_ID  INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COLUMNA_ID_USUARIO TEXT, " +
-                "$COLUMNA_CANTIDAD INTEGER " +
-                "$COLUMNA_DESCRIPCION  TEXT," +
+                "$COLUMNA_CANTIDAD INTEGER, " +
+                "$COLUMNA_DESCRIPCION TEXT," +
                 "$COLUMNA_AHORRO INTEGER)"
         if (db != null) {
             db.execSQL(CREATE_TABLE_OBJETIVO)

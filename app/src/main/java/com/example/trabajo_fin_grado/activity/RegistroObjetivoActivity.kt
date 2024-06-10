@@ -5,40 +5,47 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajo_fin_grado.R
-import com.example.trabajo_fin_grado.activity.objetivo.ListaAhorroAdapter
+import com.example.trabajo_fin_grado.clases.Objetivo
 import com.example.trabajo_fin_grado.clases.Usuario
 import com.example.trabajo_fin_grado.db.ObjetivoDatabase
 
-class ObjetivosActivity : AppCompatActivity() {
-    private lateinit var dbObjetivoHelper: ObjetivoDatabase
+class RegistroObjetivoActivity : AppCompatActivity() {
+
     private lateinit var usuario: Usuario
-    private lateinit var botonAniadir: Button
+    private lateinit var cantidad: EditText
+    private lateinit var descripcion: EditText
+    private lateinit var ahorrado: EditText
+    private lateinit var dbHandler: ObjetivoDatabase
+    private lateinit var botonGuardarObjetivo: Button
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_objetivos_ahorro)
+        setContentView(R.layout.activity_registro_objetivo)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
         usuario = intent.getParcelableExtra("Usuario")!!
-        botonAniadir = findViewById(R.id.botonAniadir)
+        dbHandler = ObjetivoDatabase(this)
 
-        dbObjetivoHelper = ObjetivoDatabase(this)
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewTransacciones)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = ListaAhorroAdapter(
-            dbObjetivoHelper.getObjetivos(usuario.getId()),
-            usuario
-        )
+        cantidad = findViewById(R.id.cantidad)
+        descripcion = findViewById(R.id.descripcion)
+        ahorrado = findViewById(R.id.ahorrado)
+        botonGuardarObjetivo = findViewById(R.id.botonGuardarObjetivo)
 
-        botonAniadir.setOnClickListener {
-            val intent = Intent(this@ObjetivosActivity, RegistroObjetivoActivity::class.java)
-            intent.putExtra("Usuario", usuario)
-            startActivity(intent)
+
+        botonGuardarObjetivo.setOnClickListener {
+            saveOperacion()
+            listaAhorro()
         }
     }
+
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_desplegable, menu)
@@ -62,8 +69,7 @@ class ObjetivosActivity : AppCompatActivity() {
                 Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show();
                 inicio()
             }
-
-            R.id.item4 -> {
+            R.id.item4 ->{
                 Toast.makeText(this, "Lista de ahorros", Toast.LENGTH_SHORT).show();
                 listaAhorro()
             }
@@ -72,26 +78,37 @@ class ObjetivosActivity : AppCompatActivity() {
     }
 
     private fun iniciarPerfil() {
-        val intent = Intent(this@ObjetivosActivity, PerfilActivity::class.java)
+        val intent = Intent(this@RegistroObjetivoActivity, PerfilActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun inicio() {
-        val intent = Intent(this@ObjetivosActivity, DashboardActivity::class.java)
+        val intent = Intent(this@RegistroObjetivoActivity, DashboardActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun operaciones() {
-        val intent = Intent(this@ObjetivosActivity, RegistroOperacionActivity::class.java)
+        val intent = Intent(this@RegistroObjetivoActivity, RegistroOperacionActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
 
     private fun listaAhorro() {
-        val intent = Intent(this@ObjetivosActivity, ObjetivosActivity::class.java)
+        val intent = Intent(this@RegistroObjetivoActivity, ObjetivosActivity::class.java)
         intent.putExtra("Usuario", usuario)
         startActivity(intent)
     }
+
+    private fun saveOperacion() {
+        val cantidad = cantidad.text.toString().toDouble()
+        val descripcion = descripcion.text.toString()
+        val ahorrado = ahorrado.text.toString().toDouble()
+
+        val objetivo = Objetivo(cantidad, descripcion, ahorrado)
+        dbHandler.addObjetivo(objetivo, usuario.getId())
+        Toast.makeText(this, "Operación guardada", Toast.LENGTH_SHORT).show()
+    }
+
 }
