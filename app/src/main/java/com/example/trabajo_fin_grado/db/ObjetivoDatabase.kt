@@ -74,7 +74,7 @@ class ObjetivoDatabase(context: Context) :
         val values = ContentValues().apply {
             put(COLUMNA_AHORRO, objetivo.getAhorrado())
         }
-        db.update(TABLA_OBJETIVO, values, "$COLUMNA_ID_USUARIO=? AND $COLUMNA_DESCRIPCION=? AND $COLUMNA_CANTIDAD=?", arrayOf(idUsuario, objetivo.getDescripcion(), objetivo.getCantidad().toString()))
+        db.update(TABLA_OBJETIVO, values, "$COLUMNA_ID=? ", arrayOf(objetivo.getId().toString()))
         db.close()
     }
 }

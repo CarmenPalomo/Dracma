@@ -8,6 +8,8 @@ class Objetivo(
     private var descripcion: String,
     private var ahorrado: Double
 ) : Parcelable {
+    private var id: Int? = null
+
     constructor(parcel: Parcel) : this(
         parcel.readDouble(),
         parcel.readString()!!,
@@ -25,6 +27,11 @@ class Objetivo(
     }
 
 
+    fun getId(): Int? {
+        return id
+    }
+
+
     fun getCantidad(): Double {
         return cantidad
     }
@@ -35,6 +42,10 @@ class Objetivo(
 
     fun getAhorrado(): Double {
         return ahorrado
+    }
+
+    fun setId(nuevoid: Int) {
+        id = nuevoid
     }
 
     fun setAhorrado(newAhorrado: Double) {
